@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block cont1 %}
+	<header>
+		<div class="logpos">
+			<a class="login-link" href="/newpost">Add new post</a>
+			|
+			<a class="login-link" href="/logout">Logout</a>
+		</div>	
+	</header>
+{% endblock %}
+	
+{% block cont %}	
+	<body>	
+		<form method="post">
+			<label>
+				<div>subject :</div>
+				<input type="text" name="subject">
+			</label>
+
+			<label>
+				<div>content:</div>
+				<textarea name="content"></textarea>
+			</label>			
+
+			<div class="error">{{ error }}</div>
+			<input type="submit">
+		</form>
+	</body>		
+
+{% endblock %}		

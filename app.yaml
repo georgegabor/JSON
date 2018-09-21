@@ -1,0 +1,30 @@
+
+runtime: python27
+api_version: 1
+threadsafe: false
+
+handlers:
+
+- url: /css  
+  static_dir: css
+
+- url: /login  
+  script: signup.app
+
+- url: /signup  
+  script: signup.app
+
+- url: /welcome
+  script: signup.app
+
+- url: /logout
+  script: signup.app
+
+- url: .*
+  script: blog.app
+
+libraries:
+- name: webapp2
+  version: "2.5.2"
+- name: jinja2
+  version: "latest"

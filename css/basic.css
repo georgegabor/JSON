@@ -1,0 +1,198 @@
+form {
+	padding-left: 35px;
+	margin: 15px;
+}
+
+body {
+	background-color: lightgray;
+	width: 100%;
+	margin: 0px ;
+	padding: 0px;
+}
+
+h1 {
+    text-align: center;
+    background-color: darkgrey;
+    margin: 0px;
+    height:  45px;
+    padding: 20px;
+}
+
+h2 {
+    width: 70%;
+}
+
+
+p {
+    margin: 10px;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-size: 20px;
+}
+
+input[type=text] {
+    width: 600px;
+    font-size: 20px;
+    padding: 2px;
+    font-family: monospace;
+}
+
+input[type=password] {
+    width: 600px;
+    font-size: 20px;
+    padding: 2px;
+    font-family: monospace;
+}
+
+textarea {
+  width: 600px;
+  height: 400px;
+  font-size: 17px;
+  font-family: monospace;
+}
+
+input[type=submit] {
+  font-size: 16px;
+  margin: 10px ;
+}
+
+hr {
+    width: 85%;
+    margin: 10px ;
+    color: gray;
+}
+
+div {
+    margin: 5px;
+}
+
+*************************************************************************
+
+.error {
+	margin: 5px;
+	color: red;
+}
+
+.login-area {
+    font-size: 13px;
+    color: gray;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.login-link {
+    color: #cf30aa;
+    text-decoration: none;
+}
+
+.logpos{
+    text-align: right;
+}
+
+/*.login-link:visited {
+    color: black;
+}*/
+
+.login-link:hover {
+    text-decoration: underline;
+}
+
+#a2 {
+    float: right;
+    color: red;
+    margin: 20px;
+    font-size: 17px;
+}
+
+.content  {
+	margin-top: 20px;
+	width: 70%;
+}
+
+.content-subject-all {
+	font-weight: bold;
+	font-size: 20px;
+	color: blue;
+	position: relative;
+	padding: 3px;
+}
+
+.content-subject {
+	font-style: italic;
+	color: black;
+}
+
+.content-created {
+	font-style: italic;
+	color: black;
+}
+
+.line {
+	width: 50%;
+	float: left;
+}
+
+#a1 {
+	text-decoration: none;
+    color: #000099;
+}
+
+.main-title {
+    display: block;
+    color: #222;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    text-decoration: none;
+}
+
+.post + .post {
+    margin-top: 15px;
+}
+
+.post-heading {
+    position: relative;
+    border-bottom: 3px solid #666;
+}
+
+.post-title {
+    font-size: 24px;
+    font-weight: bold;
+
+    text-decoration: none;
+    color: #333;
+}
+
+.post-title:visited {
+    color: #333;
+}
+
+.post-date {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    color: #999;
+
+}
+
+.post-content {
+    margin-top: 5px;
+}
+
+.age {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    color: gray;
+    font-size: 12px;
+}
