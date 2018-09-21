@@ -101,7 +101,7 @@ class FrontPageJSON(Handler):
 				
 app = webapp2.WSGIApplication([ webapp2.Route(r'/blog', handler=MainPage),
     							webapp2.Route(r'/newpost', handler=NewPost),
-    							webapp2.Route(r'/blog/<:\d+.json>', handler=PageByIdJSON),
-    							webapp2.Route(r'/blog/.json', handler=FrontPageJSON),
-    							webapp2.Route(r'/blog/<:\d+>', handler=PermaLink)],
+    							webapp2.Route(r'/<:\d+.json>', handler=PageByIdJSON),
+    							webapp2.Route(r'/.json', handler=FrontPageJSON),
+    							webapp2.Route(r'/<:\d+>', handler=PermaLink)],
 								debug = True)		
