@@ -69,7 +69,7 @@ class NewPost(Handler):
 			a = Content(subject = subject, content = content)
 			a.put()
 			a_id = a.key().id()
-			self.redirect("/blog/%d" % a_id)
+			self.redirect("/%d" % a_id)
 		else:
 			error = "Subject and/or content missing ! Try again !"
 			self.render_newpost(error=error)
