@@ -1,3 +1,4 @@
+
 form {
 	padding-left: 35px;
 	margin: 15px;
@@ -12,22 +13,18 @@ body {
 
 h1 {
     text-align: center;
-    background-color: darkgrey;
+    background-color: #933;
     margin: 0px;
     height:  45px;
     padding: 20px;
 }
-
-h2 {
-    width: 70%;
-}
-
 
 p {
     margin: 10px;
 }
 
 h2 {
+    width: 70%;
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
@@ -106,6 +103,13 @@ div {
     text-decoration: underline;
 }
 
+#a1 {
+	text-decoration: none;
+    color: #fff;
+    font-family: 'Spirax', cursive;
+    font-size: 210%;
+}
+
 #a2 {
     float: right;
     color: red;
@@ -114,37 +118,33 @@ div {
 }
 
 .content  {
-	margin-top: 20px;
-	width: 70%;
+    margin-top: 20px;
+    width: 70%;
 }
 
 .content-subject-all {
-	font-weight: bold;
-	font-size: 20px;
-	color: blue;
-	position: relative;
-	padding: 3px;
+    font-weight: bold;
+    font-size: 20px;
+    color: blue;
+    position: relative;
+    padding: 3px;
 }
 
 .content-subject {
-	font-style: italic;
-	color: black;
+    font-style: italic;
+    color: black;
 }
 
 .content-created {
-	font-style: italic;
-	color: black;
+    font-style: italic;
+    color: black;
 }
 
 .line {
-	width: 50%;
-	float: left;
+    width: 50%;
+    float: left;
 }
 
-#a1 {
-	text-decoration: none;
-    color: #000099;
-}
 
 .main-title {
     display: block;
