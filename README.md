@@ -1,4 +1,5 @@
 # JSON
-Udacity - Blog + login/logout/signup + .json url added
+Udacity - Blog 
+
 
 https://tesztasignup.appspot.com/
