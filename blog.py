@@ -12,6 +12,7 @@ from google.appengine.ext import db
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir), autoescape=True)
 query_time = datetime.now()
+time_elapsed = 0
 
 #~~~~~~~~~~~~~~~~~~~~~~~~ Memcache ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -29,6 +30,7 @@ def cache_it(dbkey = 'joke'):
 			contents = list(contents)
 			memcache.set(dbkey, contents)
 	this_moment = datetime.now()
+	global time_elapsed
 	time_elapsed = int((this_moment - query_time).total_seconds())
 	return contents, time_elapsed
 
@@ -123,6 +125,8 @@ class FrontPageJSON(Handler):
 class Flush(Handler):
 	def get(self):
 		memcache.flush_all()
+		global time_elapsed
+		time_elapsed = 0
 		self.redirect("/blog")
 
 #~~~~~~~~~~~~~~~~~~~~~~~~ The Handler Handler :-) ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
