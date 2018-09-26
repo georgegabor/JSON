@@ -96,7 +96,7 @@ class Signup(Handler):
 				if (not validUsername):
 					usernameerror="That's not a valid username."
 				if (not validPassword):
-					passworderror="That not a valid password."
+					passworderror="That's not a valid password."
 				if (validPassword and not validVerify):
 					verifyerror="Your passwords didn't match."
 				if (not validEmail):

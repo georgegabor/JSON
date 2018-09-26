@@ -2,28 +2,22 @@
 <html>
 	<head>
 		<title> Le Blog </title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="https://fonts.googleapis.com/css?family=Spirax" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="../css/basic.css">
 	</head>
 
 	<body >
 		<header >
-				<h1 > 
-					<a id="a1"  href="/blog">  Le  &nbsp;&nbsp;&nbsp;&nbsp; Blog </a>
+				<h1 class="blog"> 
+					<a class="a1"  href="/blog">  Le  &nbsp;&nbsp;&nbsp;&nbsp; Blog </a>
 				</h1>
 				{% block cont1 %}
 				{% endblock %}	
 		</header>
 
-		<div >
-			<h2 >
-			
-				{% block cont %}
-				{% endblock %}
-
-			</h2>
-		</div>
+		{% block cont %}
+		{% endblock %}
+		
 	</body>
-
-	
 </html>

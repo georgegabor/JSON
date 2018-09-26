@@ -1,67 +1,60 @@
 {% extends "base.html" %}
 
-{% block cont %}    
-
-  <head>
-    <title>Sign Up</title>
-    <link rel="stylesheet" type="text/css" href="../css/basic.css">
-  </head>
+{% block cont %}
 
   <body>
-    <h2>Signup</h2>
-    <form method="post">
-      <table>
-        <tr>
-          <td class="label">
-            Username
-          </td>
-          <td class="error">
-            <input type="text" name="username" value="{{ username }}" placeholder="username"> {{ usernameerror }}
-          </td >
-          <td >
-            
-          </td>
-        </tr>
-
-        <tr>
-          <td class="label">
-            Password
-          </td>
-          <td class="error">
-            <input type="password" name="password" value="{{ password }}" placeholder="password"> {{ passworderror }}
-          </td>
-          <td >
-            
-          </td>
-        </tr>
-
-        <tr>
-          <td class="label">
-            Verify Password
-          </td>
-          <td class="error">
-            <input type="password" name="verify" value="{{ verify }}" placeholder="password again"> {{ verifyerror }}
-          </td>
-          <td >
-            
-          </td>
-        </tr>
-
-        <tr>
-          <td class="label">
-            Email (optional)
-          </td>
-          <td class="error">
-            <input type="text" name="email" value="{{ email }}" placeholder="you@email.com"> {{ emailerror }}
-          </td>
-          <td >
-            
-          </td>
-        </tr>
-      </table>
-
-      <input type="submit">
-    </form>
+    <div class="box">
+      <h2>Signup</h2>
+        <form method="post">
+          <div class="input_box">
+            <input type="text" name="username" value="{{ username }}"  required="">
+              <label>
+                <div>
+                  Username
+                </div>
+              </label>  
+              <div class="error">
+                {{ usernameerror }} 
+              </div>  
+          </div>
+          <div class="input_box">
+            <input type="password" name="password" value="{{ password }}"  required=""> 
+              <label>
+                <div>
+                  Password
+                </div>
+              </label>  
+              <div class="error">
+                {{ passworderror }} 
+              </div>  
+          </div>
+          <div class="input_box">
+            <input type="password" name="verify" value="{{ verify }}"  required="">
+              <label>
+                <div>
+                  Password again
+                </div>
+              </label>  
+              <div class="error">
+                {{ verifyerror }} 
+              </div>  
+          </div>
+          <div class="input_box">
+            <input type="text" name="email" value="{{ email }}" > 
+              <label>
+                <div>
+                  Email(optional)
+                </div>
+              </label>  
+              <div class="error">
+                {{ emailerror }} 
+              </div>  
+          </div>
+              <input type="submit" value="Submit" name="" >
+        </form>
+    </div>
   </body>
 
-{% endblock %}    
+{% endblock %}
+
+  

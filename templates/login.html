@@ -1,43 +1,36 @@
 {% extends "base.html" %}
 
-{% block cont %}		
+{% block cont %}
 
-	<head>
-		<title>Login</title>
-	    <link rel="stylesheet" type="text/css" href="../css/basic.css">
-	</head>
 	<body>
-		<h2>Login</h2>
-    	<form method="post">
-	      	<table>
-		        <tr>
-		          <td class="label">
-		            Username
-		          </td>
-
-		          <td class="error">
-		            <input type="text" name="username" value="{{ username }}" placeholder="username"> {{ usernameerror }}
-		          </td >
-		        </tr>
-
-		        <tr>
-		          <td class="label">
-		            Password
-		          </td>
-
-		          <td class="error">
-		            <input type="password" name="password" value="{{ password }}" placeholder="password"> {{ passworderror }}
-		          </td>
-		        </tr>
-	        </table>
-	        <table>	
-	        	<tr>
-	        		<td class="label">
-	      				<input type="submit">
-	      			</td>
-	      		</tr>
-	      	</table>
-	    </form>
+		<div class="box">
+			<h2>Login</h2>
+	    	<form method="post">
+	    		<div class="input_box">
+		            <input type="text" name="username" value="{{ username }}"  required="">
+			        <label>
+			        	<div>
+			        		Username
+			        	</div>
+			        </label>  
+		            	<div class="error">
+		            		{{ usernameerror }} 
+		            	</div>	
+			    </div>
+			    <div class="input_box">
+		            <input type="password" name="password" value="{{ password }}"  required=""> 
+		            <label>
+			        	<div>
+			        		Password
+			        	</div>
+			        </label>  
+		            	<div class="error">
+		            		{{ passworderror }} 
+		            	</div>	
+				</div>
+      				<input type="submit" value="Submit" name="" >
+		    </form>
+		</div>
 	</body>
 
-{% endblock %}		
+{% endblock %}

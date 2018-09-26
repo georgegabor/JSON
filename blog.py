@@ -2,15 +2,53 @@ import os
 import webapp2 
 import jinja2
 import json
-
+import logging
+import datetime
+from google.appengine.api import memcache
 from signup import User
 from datetime import datetime, timedelta
 from google.appengine.ext import db
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
-jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape = True)
+jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir), autoescape=True)
+query_time = datetime.now()
 
-################################################## The default Handler Class #################################################################################
+#~~~~~~~~~~~~~~~~~~~~~~~~ Memcache ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+def cache_it(dbkey = 'joke'):
+	contents = memcache.get(dbkey)
+	if not contents:
+		global query_time
+		query_time = datetime.now()
+		if dbkey is not 'joke':
+			memcache.flush_all()
+			contents = Content.get_by_id(int(dbkey))
+			memcache.set(dbkey, contents)
+		else:
+			contents = db.GqlQuery("select * from Content order by created desc")
+			contents = list(contents)
+			memcache.set(dbkey, contents)
+	this_moment = datetime.now()
+	time_elapsed = int((this_moment - query_time).total_seconds())
+	return contents, time_elapsed
+
+#~~~~~~~~~~~~~~~~~~~~~~~~ The Database Model ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class Content(db.Model):
+	subject = db.StringProperty(required=True)
+	content = db.TextProperty(required=True)
+	created = db.DateTimeProperty(auto_now_add=True)
+
+	def make_dict(self):
+		time_fmt = '%c'
+		d = {	'subject': self.subject,
+				'content': self.content,
+				'created': self.created.strftime(time_fmt)}
+		return d
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Handler Classes ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#~~~~~~~~~~~~~~~~~~~~~~~~ Default Handler  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class Handler(webapp2.RequestHandler):
 	def write(self, *a, **kw):
@@ -28,31 +66,17 @@ class Handler(webapp2.RequestHandler):
 		self.response.headers['Content-Type'] = 'application/json; charset=UTF-8'
 		self.response.out.write(json_txt)
 
-################################################## The Database Model #################################################################################
-
-class Content(db.Model):
-	subject = db.StringProperty( required = True)
-	content = db.TextProperty( required = True)
-	created = db.DateTimeProperty( auto_now_add = True)
-
-	def make_dict(self):
-		time_fmt = '%c'
-		d = {'subject': self.subject,
-			'content': self.content,
-			'created': self.created.strftime(time_fmt)}
-		return d
-
-################################################## The FrontPage Handler #################################################################################
+#~~~~~~~~~~~~~~~~~~~~~~~~  Frontpage Handler ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class MainPage(Handler):
 	def render_front(self, contents=""):
-		contents = db.GqlQuery("select * from Content order by created desc")
-		self.render("content.html", contents=contents)
+		contents, time_elapsed = cache_it()
+		self.render("content.html", contents=contents, time_elapsed=time_elapsed)
 
 	def get(self):
 		self.render_front()
 
-################################################## The Newpost Handler #################################################################################
+#~~~~~~~~~~~~~~~~~~~~~~~~ Newpost Handler ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class NewPost(Handler):
 	def render_newpost(self, subject="", contents="", error=""):
@@ -74,16 +98,14 @@ class NewPost(Handler):
 			error = "Subject and/or content missing ! Try again !"
 			self.render_newpost(error=error)
 
-################################################## The Newpost Handler #################################################################################
+#~~~~~~~~~~~~~~~~~~~~~~~~ Permalink Handler ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class PermaLink(Handler):
 	def get(self, blog_id):
-		# blog_id = self.request.get("")
-		# blog_id = 17
-		s = Content.get_by_id(int(blog_id))
-		self.render("content.html", contents= [s] )
+		s, time_elapsed = cache_it(dbkey = blog_id)
+		self.render("permalink.html", content=s, time_elapsed=time_elapsed)
 
-################################################## The JSON Format Handlers #################################################################################
+#~~~~~~~~~~~~~~~~~~~~~~~~ JSON Format Handlers ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 class PageByIdJSON(Handler):
 	def get(self, url_id):
@@ -96,12 +118,18 @@ class FrontPageJSON(Handler):
         posts = Content.all().order('-created')
         return self.render_json([p.make_dict() for p in posts])
 
-#################################################### The app ###############################################################################
+#~~~~~~~~~~~~~~~~~~~~~~~~ Flush Handler ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-				
+class Flush(Handler):
+	def get(self):
+		memcache.flush_all()
+		self.redirect("/blog")
+
+#~~~~~~~~~~~~~~~~~~~~~~~~ The Handler Handler :-) ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 app = webapp2.WSGIApplication([ webapp2.Route(r'/blog', handler=MainPage),
     							webapp2.Route(r'/newpost', handler=NewPost),
+    							webapp2.Route(r'/flush', handler=Flush),
     							webapp2.Route(r'/<:\d+.json>', handler=PageByIdJSON),
     							webapp2.Route(r'/.json', handler=FrontPageJSON),
-    							webapp2.Route(r'/<:\d+>', handler=PermaLink)],
-								debug = True)		
+    							webapp2.Route(r'/<:\d+>', handler=PermaLink)], debug = True)		

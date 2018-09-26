@@ -12,19 +12,19 @@
 	
 {% block cont %}	
 	<body>	
-		<form method="post">
+		<form class="content_to_post" method="post">
 			<label>
 				<div>subject :</div>
 				<input type="text" name="subject">
 			</label>
 
 			<label>
-				<div>content:</div>
+				<div>content :</div>
 				<textarea name="content"></textarea>
 			</label>			
 
 			<div class="error">{{ error }}</div>
-			<input type="submit">
+			<input class="submit" type="submit">
 		</form>
 	</body>		
 
